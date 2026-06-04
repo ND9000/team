@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitfaden: Konstruktives Feedback in der Teamführung</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --primary-light: #eff6ff;
+            --accent-color: #0d9488;
+            --accent-light: #f0fdfa;
+            --text-dark: #1f2937;
+            --text-muted: #4b5563;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --success-color: #16a34a;
+            --success-bg: #f0fdf4;
+            --danger-color: #dc2626;
+            --danger-bg: #fef2f2;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        .card-title svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+
+        .section-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Timing Styles */
+        .timing-list {
+            list-style: none;
+        }
+        .timing-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+        .timing-item strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        /* WWW Model Styles */
+        .www-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: var(--bg-main);
+            border-left: 4px solid var(--primary-color);
+        }
+        .www-letter {
+            font-weight: 900;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+        .www-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+        .example-box {
+            margin-top: 10px;
+            background-color: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px dashed #cbd5e1;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Tables / Dos and Don'ts */
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        th {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        .th-dos { color: var(--success-color); background-color: var(--success-bg); }
+        .th-donts { color: var(--danger-color); background-color: var(--danger-bg); }
+        
+        .td-dos { background-color: rgba(22, 163, 74, 0.02); }
+        .td-donts { background-color: rgba(220, 38, 32, 0.02); }
+
+        .list-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .list-item::before {
+            content: "•";
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .td-dos .list-item::before { color: var(--success-color); }
+        .td-donts .list-item::before { color: var(--danger-color); }
+
+        /* Abschluss Styles */
+        .quote-box {
+            background-color: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 15px;
+        }
+        .quote-box p {
+            font-weight: 600;
+            color: #115e59;
+            margin-bottom: 5px;
+        }
+        .quote-box span {
+            font-size: 0.9rem;
+            color: #14b8a6;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🎯 KOMPASS</h1>
+        <p>Leitfaden für konstruktives Feedback & nachhaltige Teamführung</p>
+    </header>
+
+    <div class="grid-2">
+        <!-- 1. TIMING & SETTING -->
+        <div class="card">
+            <div class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
+                1. Das richtige Setting & Timing
+            </div>
+            <ul class="timing-list">
+                <li class="timing-item">
+                    <strong>👥 Vier-Augen-Prinzip</strong>
+                    Kritik wird ausnahmslos unter vier Augen besprochen. Niemand darf vor dem gesamten Team bloßgestellt werden. Lob hingegen darf gerne öffentlich sein.
+                </li>
+                <li class="timing-item">
+                    <strong>🌡️ Die Temperatur-Regel</strong>
+                    Gib Feedback zeitnah (binnen 24–48 Stunden), aber erst dann, wenn die ersten Emotionen abgekühlt sind – sowohl bei dir als auch beim Teammitglied.
+                </li>
+            </ul>
+        </div>
+
+        <!-- 2. DAS WWW-MODELL -->
+        <div class="card">
+            <div class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-16c-.4-.7-1.1-1-1.6-1s-1.2.3-1.6 1l-9.1 16c-.4.7-.4 1.5 0 2.2.4.7 1.1 1 1.6 1h18.2c.5 0 1.2-.3 1.6-1 .4-.7.4-1.5 0-2.2zM12 18c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-4c0 .6-.4 1-1 1s-1-.4-1-1v-4c0-.6.4-1 1-1s1 .4 1 1v4z"/></svg>
+                2. Das WWW-Modell
+            </div>
+            <div class="www-step">
+                <span class="www-letter">W</span><span class="www-title">ahrnehmung (Fakten)</span>
+                <p>Beschreibe rein sachlich, was du beobachtet hast. Vermeide Worte wie „immer“ oder „nie“.</p>
+                <div class="example-box">„Mir ist aufgefallen, dass du die letzten zwei Berichte nach der Deadline eingereicht hast.“</div>
+            </div>
+            <div class="www-step">
+                <span class="www-letter">W</span><span class="www-title">irkung (Konsequenzen)</span>
+                <p>Erkläre die Folgen mittels Ich-Botschaften. Welche Auswirkung hat es auf dich, das Projekt oder das Team?</p>
+                <div class="example-box">„Das führt dazu, dass die Auswertung im Team verzögert wird und wir unter Zeitdruck geraten.“</div>
+            </div>
+            <div class="www-step">
+                <span class="www-letter">W</span><span class="www-title">unsch (Zukunft)</span>
+                <p>Formuliere ein klares, messbares und realistisches Ziel für die Zukunft.</p>
+                <div class="example-box">„Ich wünsche mir, dass Fristen eingehalten werden. Sag mir bitte rechtzeitig Bescheid, wenn es eng wird.“</div>
+            </div>
+        </div>
+
+        <!-- 3. DOS & DON'TS -->
+        <div class="card section-full">
+            <div class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6H9a5 5 0 0 0-5 5v3a1 1 0 0 0 2 0v-3a3 3 0 0 1 3-3h7.3l-1.6 1.6a1 1 0 0 0 1.4 1.4l3.3-3.3a1 1 0 0 0 0-1.4l-3.3-3.3z"/></svg>
+                3. Schnell-Check: Dos & Don'ts
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th-dos">👍 Was hilft (Dos)</th>
+                            <th class="th-donts">👎 Was schadet (Don'ts)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td-dos">
+                                <div class="list-item"><strong>Ich-Botschaften:</strong> „Ich nehme wahr, dass...“ vermittelt Perspektive statt absoluter Wahrheit.</div>
+                                <div class="list-item"><strong>Konkrete Situationen:</strong> Beziehe dich exakt auf ein greifbares Ereignis aus der jüngsten Vergangenheit.</div>
+                                <div class="list-item"><strong>Zukunftsorientiert:</strong> Der Fokus liegt darauf, wie man es ab morgen gemeinsam besser machen kann.</div>
+                            </td>
+                            <td class="td-donts">
+                                <div class="list-item"><strong>Du-Botschaften:</strong> „Du bist unzuverlässig“ erzeugt sofortige Verteidigung und Blockade.</div>
+                                <div class="list-item"><strong>Pauschalrundumschläge:</strong> Sätze wie „Nie ziehst du mit“ zerstören die Vertrauensbasis.</div>
+                                <div class="list-item"><strong>Alte Kamellen:</strong> Fehler aufzuwärmen, die Monate zurückliegen, demotiviert nachhaltig.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. LÖSUNGSORIENTIERTER ABSCHLUSS -->
+        <div class="card section-full">
+            <div class="card-title">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                4. Der lösungsorientierte Abschluss
+            </div>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Ein erfolgreiches Feedbackgespräch endet nie einseitig, sondern immer mit einer klaren, partnerschaftlichen Vereinbarung. Binde das Teammitglied aktiv in die Lösungsfindung ein:</p>
+            
+            <div class="quote-box">
+                <p>„Wie siehst du die Situation?“</p>
+                <span>Gibt Raum für die Perspektive des Gegenübers und baut Brücken.</span>
+            </div>
+            <div class="quote-box">
+                <p>„Was brauchst du von mir oder dem Team, um das umzusetzen?“</p>
+                <span>Signalisiert Rückendeckung und klärt den konkreten Unterstützungsbedarf.</span>
+            </div>
+            <div class="quote-box">
+                <p>„Lass uns am nächsten Freitag kurz draufschauen, wie es läuft.“</p>
+                <span>Schafft Verbindlichkeit durch einen festen, kurzen Follow-up-Termin.</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Leitfaden für konstruktives Feedback • Bereit für dein GitHub Repository
+    </footer>
+</div>
+
+</body>
+</html>
